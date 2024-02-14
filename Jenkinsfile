@@ -12,17 +12,17 @@ pipeline{
             git credentialsId: 'github', url: 'https://github.com/aniketmore620/star-agile-banking-finance.git'
         }
     }
-    stage('package'){
+    stage('Maven package'){
         steps{
             sh 'mvn clean package'
         }
     }
-    stage('docker build'){
+    stage('docker build image'){
         steps{
             sh 'docker build . -t moreaniket/banking:${DOCKER_TAG}'
      }
 }
-    stage('docker push'){
+    stage('docker hub push'){
         steps{
             withCredentials([string(credentialsId: 'dockerhub', variable: 'Dockerhubpwd')]) {
             sh 'docker login -u moreaniket -p ${Dockerhubpwd}'
