@@ -1,2 +1,2 @@
 [aniket]
-172.31.87.236 ansible_user=ec2-user
+172.31.87.236 ansible_user=ubuntu
