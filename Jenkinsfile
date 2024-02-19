@@ -30,14 +30,17 @@ pipeline{
             sh 'docker push padmavathi/banking:${DOCKER_TAG}'
      }
   }
-    stage('deploy'){
-        steps{
-            ansiblePlaybook credentialsId: 'dev-server', disableHostKeyChecking: true, extras: '-e DOCKER_TAG=${DOCKER_TAG}', installation: 'ansible', inventory: 'ans-inventory.inv', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
-   }
+   stage('Deploy') {
+            steps {
+               script {
+                    def dockerCmd = 'sudo docker run -itd --name My-first-containe21 -p 8081:80 padmavathi/banking:v1'
+                    sshagent(['sshkeypair']) {
+                        //chnage the private ip in below code
+                        // sh "docker run -itd --name My-first-containe211 -p 8082:80 akshu20791/phpprojectimg:v1"
+                         sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.154 ${dockerCmd}"
+                    }
+                }
+            }
 }
 }
-}
-def getVersion(){
-def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
-   return commitHash    
-}
+
