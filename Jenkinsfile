@@ -9,7 +9,7 @@ pipeline{
     stages{
         stage('git checkout'){
         steps{
-            git credentialsId: 'github', url: 'https://github.com/aniketmore620/star-agile-banking-finance.git'
+            git credentialsId: 'github', url: 'https://github.com/padmavathi15/star-agile-banking-finance.git'
         }
     }
     stage('Maven package'){
@@ -19,15 +19,15 @@ pipeline{
     }
     stage('docker build image'){
         steps{
-            sh 'docker build . -t moreaniket/banking:${DOCKER_TAG}'
+            sh 'docker build . -t padmavathi/banking:${DOCKER_TAG}'
      }
 }
     stage('docker hub push'){
         steps{
             withCredentials([string(credentialsId: 'dockerhub', variable: 'Dockerhubpwd')]) {
-            sh 'docker login -u moreaniket -p ${Dockerhubpwd}'
+            sh 'docker login -u padmavathihg -p ${Dockerhubpwd}'
 }
-            sh 'docker push moreaniket/banking:${DOCKER_TAG}'
+            sh 'docker push padmavathi/banking:${DOCKER_TAG}'
      }
   }
     stage('deploy'){
