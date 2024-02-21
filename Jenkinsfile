@@ -40,7 +40,7 @@ pipeline{
         }   
     }
 }
-}
+
     //stage('docker hub push'){
       //  steps{
         //    withCredentials([string(credentialsId: 'dockerhub', variable: 'Dockerhubpwd')]) {
